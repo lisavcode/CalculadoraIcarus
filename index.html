@@ -1,0 +1,1051 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculadora Icarus - Multi Profissão</title>
+    <style>
+      :root {
+        --primary: #00eeff; /* Azul Neon */
+        --primary-dark: #0099a3;
+        --bg: #1a1a1a;
+        --card-bg: #2d2d2d;
+        --text: #ffffff;
+        --text-muted: #aaaaaa;
+        --border: #444;
+
+        /* Cores das Moedas */
+        --coin-oz: #ffd700; /* Dourado */
+        --coin-sz: #92b5c5; /* Prata Azulado */
+        --coin-bz: #cd7f32; /* Cobre/Bronze */
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: var(--bg);
+        color: var(--text);
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 600px;
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      h1 {
+        color: var(--primary);
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-size: 24px;
+        margin-bottom: 10px;
+      }
+
+      /* --- ESTILO DAS ABAS --- */
+      .tabs-container {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 10px;
+        flex-wrap: wrap;
+      }
+
+      .tab-btn {
+        background-color: var(--card-bg);
+        border: 1px solid var(--border);
+        color: var(--text-muted);
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 20px;
+        font-size: 14px;
+        text-transform: uppercase;
+        font-weight: bold;
+        transition: all 0.3s;
+      }
+
+      .tab-btn:hover {
+        border-color: var(--primary);
+        color: #fff;
+      }
+
+      .tab-btn.active {
+        background-color: var(--primary);
+        color: #000; /* Texto preto no fundo neon */
+        border-color: var(--primary);
+        box-shadow: 0 0 10px rgba(0, 238, 255, 0.4);
+      }
+
+      /* Input Group sticky */
+      .input-group {
+        background-color: var(--card-bg);
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        display: flex;
+        gap: 10px;
+        margin-bottom: 10px;
+        position: sticky;
+        top: 10px;
+        z-index: 100;
+        border: 1px solid var(--border);
+      }
+
+      input {
+        background-color: #404040;
+        border: 1px solid var(--border);
+        color: white;
+        padding: 12px;
+        border-radius: 4px;
+        font-size: 16px;
+        outline: none;
+      }
+
+      input:focus {
+        border-color: var(--primary);
+      }
+
+      #search {
+        flex-grow: 1;
+      }
+      #quantity {
+        width: 70px;
+        text-align: center;
+        font-weight: bold;
+      }
+
+      .results-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding-bottom: 50px;
+      }
+
+      .category-header {
+        color: var(--primary);
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 5px;
+        margin-top: 20px;
+        margin-bottom: 10px;
+        font-weight: bold;
+        letter-spacing: 1px;
+      }
+
+      .item-card {
+        background-color: var(--card-bg);
+        border-left: 4px solid var(--text-muted);
+        padding: 15px;
+        border-radius: 8px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        transition: transform 0.1s;
+      }
+
+      .item-card:hover {
+        border-left-color: var(--primary);
+        background-color: #363636;
+      }
+
+      .item-header {
+        text-align: center;
+        border-bottom: 1px solid #444;
+        padding-bottom: 8px;
+      }
+
+      .item-header h3 {
+        margin: 0;
+        font-size: 18px;
+        color: var(--primary);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .item-header .item-subtext {
+        font-size: 11px;
+        color: var(--text-muted);
+        text-transform: uppercase;
+      }
+
+      .item-body {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        font-size: 12px;
+        align-items: center;
+      }
+
+      .info-section {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .info-section.basic {
+        border-right: 1px solid #444;
+        padding-right: 10px;
+        align-items: flex-start;
+      }
+
+      .info-section.custom {
+        padding-left: 10px;
+        align-items: flex-end;
+      }
+
+      /* Basic Info Styles */
+      .info-row {
+        margin-bottom: 2px;
+        color: #ccc;
+      }
+      .info-label {
+        color: #888;
+        font-size: 10px;
+        text-transform: uppercase;
+        margin-right: 5px;
+      }
+
+      /* Coin Colors */
+      .oz {
+        color: var(--coin-oz);
+        text-shadow: 0 0 2px rgba(255, 215, 0, 0.3);
+      }
+      .sz {
+        color: var(--coin-sz);
+        text-shadow: 0 0 2px rgba(79, 195, 247, 0.3);
+      }
+      .bz {
+        color: var(--coin-bz);
+      }
+
+      /* Custom Controls Styles - Compact */
+      .custom-controls {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        width: 20%;
+        justify-content: flex-end;
+        margin-bottom: 0px;
+      }
+
+      .custom-controls input[type="range"] {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 100px; /* Fixed smaller width */
+        flex-grow: 0;
+        height: 6px;
+        background: #444;
+        border-radius: 3px;
+        outline: none;
+        cursor: pointer;
+        padding: 0;
+        border: none;
+        margin: 0;
+      }
+
+      .custom-controls input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: var(--primary);
+        box-shadow: 0 0 4px var(--primary);
+        border: 2px solid #2d2d2d; /* Inner dot effect */
+        cursor: pointer;
+        transition: transform 0.2s;
+        margin-top: 0px; /* Center thumb */
+      }
+
+      .custom-controls input[type="range"]::-webkit-slider-thumb:hover {
+        transform: scale(1.1);
+      }
+
+      .custom-controls input[type="number"] {
+        width: 50px;
+        padding: 2px 5px;
+        text-align: right;
+        font-size: 11px;
+        height: 20px;
+        background-color: #404040;
+        border: 1px solid #555;
+        color: white;
+        border-radius: 3px;
+        /* Remove up and down arrows */
+        -moz-appearance: textfield;
+        appearance: textfield;
+      }
+
+      .custom-controls input[type="number"]::-webkit-outer-spin-button,
+      .custom-controls input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      .custom-total {
+        text-align: right;
+        font-size: 12px;
+        color: var(--primary);
+        line-height: 1.3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Calculadora Icarus</h1>
+
+        <div class="tabs-container">
+          <button class="tab-btn active" onclick="setTab('cacador')">
+            Caçador
+          </button>
+          <button class="tab-btn" onclick="setTab('alquimista')">
+            Alquimista
+          </button>
+        </div>
+      </header>
+
+      <div class="input-group">
+        <input
+          type="text"
+          id="search"
+          placeholder="Buscar item..."
+          autocomplete="off"
+        />
+        <input
+          type="number"
+          id="quantity"
+          value="1"
+          min="1"
+          placeholder="Qtd"
+        />
+      </div>
+
+      <div id="results" class="results-list"></div>
+    </div>
+
+    <script>
+      let currentTab = "cacador";
+
+      const dataByProfession = {
+        cacador: [
+          { name: "Couro", min: 2, max: 3, cat: "Básico" },
+          { name: "Couro Reforçado", min: 3, max: 6, cat: "Básico" },
+          { name: "Piche", min: 0.5, max: 1, cat: "Básico" },
+          { name: "Pluma", min: 1, max: 2, cat: "Básico" },
+          { name: "Ovo", min: 1, max: 2, cat: "Básico" },
+          { name: "Teia", min: 0.5, max: 1, cat: "Básico" },
+          { name: "Vulcan Bee", min: 2, max: 2, cat: "Básico" },
+          { name: "Icor", min: 1, max: 1, cat: "Básico" },
+          { name: "Berrante", min: 3, max: 5, cat: "Básico" },
+          { name: "Couraça", min: 0.3, max: 0.3, cat: "Básico" },
+          { name: "Couraça-Grossa", min: 2, max: 4, cat: "Básico" },
+          { name: "Crânio Gasto", min: 10, max: 20, cat: "Básico" },
+          { name: "Osso", min: 1, max: 1, cat: "Básico" },
+          { name: "Marfim", min: 2, max: 3, cat: "Básico" },
+          { name: "Peles Reptilianas", min: 1, max: 1, cat: "Básico" },
+          { name: "Pele de Lobo", min: 1, max: 1, cat: "Básico" },
+          { name: "Pele de Hiena", min: 1, max: 1, cat: "Básico" },
+          { name: "Pele de Felino", min: 1, max: 1, cat: "Básico" },
+          { name: "Couraça de Rinoceronte", min: 2, max: 3, cat: "Básico" },
+
+          { name: "Carne Saborosa", min: 2, max: 3, cat: "Carnes" },
+          { name: "Carne Exótica", min: 2, max: 3, cat: "Carnes" },
+          { name: "Carne de Feras", min: 1, max: 1, cat: "Carnes" },
+          { name: "Porco Cru", min: 1, max: 4, cat: "Carnes" },
+          { name: "Carne Requintada", min: 3, max: 6, cat: "Carnes" },
+          { name: "Carne Humana", min: 2, max: 3, cat: "Carnes" },
+          { name: "Carne de Ostras", min: 3, max: 6, cat: "Carnes" },
+
+          {
+            name: "Couraça de Elefante",
+            min: 2,
+            max: 3,
+            cat: "Partes de Animais",
+          },
+          { name: "Pele de Urso", min: 2, max: 3, cat: "Partes de Animais" },
+          { name: "Pelos", min: 1, max: 2, cat: "Partes de Animais" },
+          { name: "Presas", min: 2, max: 3, cat: "Partes de Animais" },
+          { name: "Garras", min: 2, max: 3, cat: "Partes de Animais" },
+          { name: "Quitina", min: 1, max: 1, cat: "Partes de Animais" },
+          {
+            name: "Glândula Volátil",
+            min: 3,
+            max: 5,
+            cat: "Partes de Animais",
+          },
+          {
+            name: "Glândula de Veneno de Serpente",
+            min: 3,
+            max: 5,
+            cat: "Partes de Animais",
+          },
+          {
+            name: "Glândula Biliar de Fera das Areias",
+            min: 600,
+            max: 800,
+            cat: "Partes de Animais",
+          },
+          {
+            name: "Glândula de Toxina do Terror",
+            min: 4,
+            max: 6,
+            cat: "Partes de Animais",
+          },
+          {
+            name: "Perna Decepada",
+            min: 500,
+            max: 1000,
+            cat: "Partes de Animais",
+          },
+          {
+            name: "Fragmento do Poder",
+            min: 50,
+            max: 300,
+            cat: "Partes de Animais",
+          },
+          { name: "Pérola", min: 20, max: 30, cat: "Partes de Animais" },
+          { name: "Ectoplasm", min: 50, max: 80, cat: "Partes de Animais" },
+          {
+            name: "Coração do Deserto",
+            min: 1850,
+            max: 2775,
+            cat: "Partes de Animais",
+          },
+          { name: "Presa Abismal", min: 5, max: 10, cat: "Partes de Animais" },
+          { name: "Olho Abismal", min: 50, max: 100, cat: "Partes de Animais" },
+
+          { name: "Carne Abismal", min: 10, max: 20, cat: "Dungeon & Raros" },
+          {
+            name: "Glândula de Peçonha Rainha",
+            min: 10,
+            max: 15,
+            cat: "Dungeon & Raros",
+          },
+          {
+            name: "Flor-das-Sombras",
+            min: 20,
+            max: 25,
+            cat: "Dungeon & Raros",
+          },
+          {
+            name: "Carne da Memória",
+            min: 50,
+            max: 100,
+            cat: "Dungeon & Raros",
+          },
+          {
+            name: "Ovo de Escorpião",
+            min: 600,
+            max: 1000,
+            cat: "Dungeon & Raros",
+          },
+          {
+            name: "Máscara Feiticeira",
+            min: 1350,
+            max: 2025,
+            cat: "Dungeon & Raros",
+          },
+          {
+            name: "Estrela do Campeão",
+            min: 1350,
+            max: 2025,
+            cat: "Dungeon & Raros",
+          },
+          { name: "Aço Khari", min: 100, max: 200, cat: "Dungeon & Raros" },
+          {
+            name: "Escamas de Dagon",
+            min: 200,
+            max: 300,
+            cat: "Dungeon & Raros",
+          },
+          {
+            name: "Coração do Fratricida",
+            min: 1350,
+            max: 2025,
+            cat: "Dungeon & Raros",
+          },
+          {
+            name: "Lágrima de Duas Raças",
+            min: 1350,
+            max: 2025,
+            cat: "Dungeon & Raros",
+          },
+          { name: "Trapezedro", min: 1350, max: 2025, cat: "Dungeon & Raros" },
+          { name: "Pele de Morcego", min: 2, max: 3, cat: "Dungeon & Raros" },
+          {
+            name: "Coração do Herói",
+            min: 100,
+            max: 200,
+            cat: "Dungeon & Raros",
+          },
+          {
+            name: "Coração Nordemita",
+            min: 10,
+            max: 20,
+            cat: "Dungeon & Raros",
+          },
+          { name: "Osso de Dragão", min: 50, max: 100, cat: "Dungeon & Raros" },
+          { name: "Pó de Mácula", min: 1, max: 2, cat: "Dungeon & Raros" },
+          {
+            name: "Máscara Subaquática",
+            min: 2000,
+            max: 2500,
+            cat: "Dungeon & Raros",
+          },
+
+          {
+            name: "Sangue de Demônio",
+            min: 10,
+            max: 20,
+            cat: "Drops Animais Médios",
+          },
+          {
+            name: "Seda de Ébano",
+            min: 150,
+            max: 200,
+            cat: "Drops Animais Médios",
+          },
+          {
+            name: "Chifre de Dragão",
+            min: 200,
+            max: 300,
+            cat: "Drops Animais Médios",
+          },
+          {
+            name: "Sangue de Urso de Demônio",
+            min: 100,
+            max: 200,
+            cat: "Drops Animais Médios",
+          },
+          {
+            name: "Devil Bear Cub",
+            min: 3000,
+            max: 6000,
+            cat: "Drops Animais Médios",
+          },
+          {
+            name: "Wraith Essence",
+            min: 4000,
+            max: 4200,
+            cat: "Drops Animais Médios",
+          },
+          {
+            name: "Cursed Undead Remains",
+            min: 250,
+            max: 300,
+            cat: "Drops Animais Médios",
+          },
+          {
+            name: "Cursed Rabbit Remains",
+            min: 300,
+            max: 350,
+            cat: "Drops Animais Médios",
+          },
+          {
+            name: "Sangue de Morcego Demoníaco Albino",
+            min: 10,
+            max: 20,
+            cat: "Drops Animais Médios",
+          },
+          {
+            name: "Fragmento de Armadura",
+            min: 50,
+            max: 100,
+            cat: "Drops Animais Médios",
+          },
+          {
+            name: "Sangue Negro",
+            min: 50,
+            max: 100,
+            cat: "Drops Animais Médios",
+          },
+          {
+            name: "Unstable Substance",
+            min: 10,
+            max: 20,
+            cat: "Drops Animais Médios",
+          },
+
+          { name: "Cabeça de Alce", min: 30, max: 50, cat: "Cabeças Básicas" },
+          {
+            name: "Cabeça de Antílope",
+            min: 30,
+            max: 50,
+            cat: "Cabeças Básicas",
+          },
+          {
+            name: "Cabeça de Bico-de-Sapato",
+            min: 30,
+            max: 50,
+            cat: "Cabeças Básicas",
+          },
+          { name: "Cabeça de Bode", min: 30, max: 50, cat: "Cabeças Básicas" },
+          { name: "Cabeça de Cervo", min: 30, max: 50, cat: "Cabeças Básicas" },
+          {
+            name: "Cabeça de Crocodilo",
+            min: 30,
+            max: 50,
+            cat: "Cabeças Básicas",
+          },
+          {
+            name: "Cabeça de Gazela",
+            min: 30,
+            max: 50,
+            cat: "Cabeças Básicas",
+          },
+          {
+            name: "Cabeça de Gorila",
+            min: 30,
+            max: 50,
+            cat: "Cabeças Básicas",
+          },
+          { name: "Cabeça de Hiena", min: 30, max: 50, cat: "Cabeças Básicas" },
+          {
+            name: "Cabeça de Hiena Morta-Viva",
+            min: 30,
+            max: 50,
+            cat: "Cabeças Básicas",
+          },
+          {
+            name: "Cabeça de Jaguar",
+            min: 30,
+            max: 50,
+            cat: "Cabeças Básicas",
+          },
+          {
+            name: "Cabeça de Javali",
+            min: 30,
+            max: 50,
+            cat: "Cabeças Básicas",
+          },
+          { name: "Cabeça de Kudu", min: 30, max: 50, cat: "Cabeças Básicas" },
+          {
+            name: "Cabeça de Lombo-Grosso",
+            min: 30,
+            max: 50,
+            cat: "Cabeças Básicas",
+          },
+          {
+            name: "Cabeça de Pantera",
+            min: 30,
+            max: 50,
+            cat: "Cabeças Básicas",
+          },
+          {
+            name: "Cabeça de Rochifre",
+            min: 30,
+            max: 50,
+            cat: "Cabeças Básicas",
+          },
+          {
+            name: "Cabeça de Salamandra",
+            min: 30,
+            max: 50,
+            cat: "Cabeças Básicas",
+          },
+          { name: "Cabeça de Símio", min: 30, max: 50, cat: "Cabeças Básicas" },
+          { name: "Cabeça de Tigre", min: 30, max: 50, cat: "Cabeças Básicas" },
+          {
+            name: "Cabeça de Urso Marrom",
+            min: 30,
+            max: 50,
+            cat: "Cabeças Básicas",
+          },
+
+          {
+            name: "Cabeça de Lombo-Grosso Demônio",
+            min: 150,
+            max: 200,
+            cat: "Cabeças Médias",
+          },
+          {
+            name: "Cabeça de Rei Lombo-Grosso",
+            min: 150,
+            max: 200,
+            cat: "Cabeças Médias",
+          },
+          {
+            name: "Cabeça de Homem Serpente Esqueleto",
+            min: 150,
+            max: 200,
+            cat: "Cabeças Médias",
+          },
+          {
+            name: "Cabeça de Mamute",
+            min: 150,
+            max: 200,
+            cat: "Cabeças Médias",
+          },
+          {
+            name: "Cabeça de Rei Rinoceronte",
+            min: 150,
+            max: 200,
+            cat: "Cabeças Médias",
+          },
+          {
+            name: "Cabeça de Rei Rochifre",
+            min: 150,
+            max: 200,
+            cat: "Cabeças Médias",
+          },
+          {
+            name: "Cabeça de Rinoceronte Branco",
+            min: 150,
+            max: 200,
+            cat: "Cabeças Médias",
+          },
+          {
+            name: "Cabeça de Rinoceronte Preto",
+            min: 150,
+            max: 200,
+            cat: "Cabeças Médias",
+          },
+          {
+            name: "Cabeça de Dente-de-Sabre",
+            min: 150,
+            max: 200,
+            cat: "Cabeças Médias",
+          },
+          {
+            name: "Cabeça de Morcego Demoníaco",
+            min: 150,
+            max: 200,
+            cat: "Cabeças Médias",
+          },
+
+          {
+            name: "Scourge Rhino Head",
+            min: 1000,
+            max: 1200,
+            cat: "Cabeças Especiais",
+          },
+          {
+            name: "Blood Hound Head",
+            min: 1000,
+            max: 1200,
+            cat: "Cabeças Especiais",
+          },
+          {
+            name: "Devil Bear Cub Head",
+            min: 1000,
+            max: 1200,
+            cat: "Cabeças Especiais",
+          },
+          {
+            name: "Kurokumo Head",
+            min: 1000,
+            max: 1200,
+            cat: "Cabeças Especiais",
+          },
+          {
+            name: "Scourge Dweller Head",
+            min: 1000,
+            max: 1200,
+            cat: "Cabeças Especiais",
+          },
+          {
+            name: "Scourge Mammoth Head",
+            min: 1000,
+            max: 1200,
+            cat: "Cabeças Especiais",
+          },
+
+          { name: "Akuma Head", min: 2000, max: 2500, cat: "Cabeças Raras" },
+          {
+            name: "Cabeça de Dragão Verde",
+            min: 2000,
+            max: 2500,
+            cat: "Cabeças Raras",
+          },
+          {
+            name: "Cabeça de Dragão Vermelho",
+            min: 2000,
+            max: 2500,
+            cat: "Cabeças Raras",
+          },
+          {
+            name: "Scourge Hound Head",
+            min: 2000,
+            max: 2500,
+            cat: "Cabeças Raras",
+          },
+          {
+            name: "Cabeça Aranha Demoníaca",
+            min: 2000,
+            max: 2500,
+            cat: "Cabeças Raras",
+          },
+          { name: "Ashira Head", min: 2000, max: 2500, cat: "Cabeças Raras" },
+          {
+            name: "Scourge Crocodile Head",
+            min: 2000,
+            max: 2500,
+            cat: "Cabeças Raras",
+          },
+          {
+            name: "Scourge Gargoyle Head",
+            min: 2000,
+            max: 2500,
+            cat: "Cabeças Raras",
+          },
+
+          {
+            name: "Skull of the Harbinger",
+            min: 3000,
+            max: 3500,
+            cat: "Cabeças Lendárias",
+          },
+          {
+            name: "Spawn of Scargath Head",
+            min: 3000,
+            max: 3500,
+            cat: "Cabeças Lendárias",
+          },
+          {
+            name: "Scourge Dragon Head",
+            min: 3000,
+            max: 3500,
+            cat: "Cabeças Lendárias",
+          },
+        ],
+
+        alquimista: [
+          { name: "Ainda será definido", min: 0, max: 0, cat: "Em Breve" },
+        ],
+      };
+
+      const searchInput = document.getElementById("search");
+      const quantityInput = document.getElementById("quantity");
+      const resultsContainer = document.getElementById("results");
+
+      let customPrices = {};
+      try {
+        const saved = localStorage.getItem("customPrices");
+        if (saved) {
+          customPrices = JSON.parse(saved);
+        }
+      } catch (e) {
+        console.error("Error loading custom prices:", e);
+      }
+
+      function setTab(tabName) {
+        currentTab = tabName;
+
+        const buttons = document.querySelectorAll(".tab-btn");
+        buttons.forEach((btn) => {
+          btn.classList.remove("active");
+          if (
+            btn.innerText.toLowerCase().includes(tabName) ||
+            (tabName === "cacador" && btn.innerText.includes("Caçador"))
+          ) {
+            btn.classList.add("active");
+          }
+        });
+
+        calculate();
+      }
+
+      function formatMoneyConverted(amount) {
+        let totalBz = Math.floor(amount);
+        let oz = Math.floor(totalBz / 10000);
+        let remainderAfterOz = totalBz % 10000;
+        let sz = Math.floor(remainderAfterOz / 100);
+        let bz = remainderAfterOz % 100;
+
+        let parts = [];
+        if (oz > 0) parts.push(`<span class="oz">${oz} Oz</span>`);
+        if (sz > 0) parts.push(`<span class="sz">${sz} Sz</span>`);
+        if (bz > 0 || parts.length === 0) {
+          parts.push(`<span class="bz">${bz} Bz</span>`);
+        } else if (amount % 1 !== 0) {
+          let decimals = (amount % 1).toFixed(2).substring(2);
+          parts.push(`<span class="bz">0,${decimals} Bz</span>`);
+        }
+        return parts.join(", ");
+      }
+
+      function formatRawBz(value) {
+        return `<span class="bz">${value.toLocaleString("pt-BR", { maximumFractionDigits: 2 })} Bz</span>`;
+      }
+
+      function createItemCard(item, qty, index) {
+        const totalMin = item.min * qty;
+        const totalMax = item.max * qty;
+
+        const storedPrice =
+          customPrices[item.name] !== undefined
+            ? customPrices[item.name]
+            : item.min;
+        const currentTotal = storedPrice * qty;
+
+        let percent = 0;
+        if (item.max > item.min) {
+          percent = ((storedPrice - item.min) / (item.max - item.min)) * 100;
+        }
+        percent = Math.min(Math.max(percent, 0), 100);
+
+        const inputId = `custom-input-${index}`;
+        const rangeId = `custom-range-${index}`;
+        const totalId = `custom-total-${index}`;
+
+        const safeName = item.name.replace(/'/g, "\\'");
+
+        return `
+            <div class="item-card">
+                <div class="item-header">
+                    <h3>${item.name}</h3>
+                </div>
+
+                <div class="item-body">
+                    <!-- Infos Básicos (Esquerda) -->
+                    <div class="info-section basic">
+                        <div class="info-row">
+                            <span class="info-label">Unitário:</span>
+                            ${formatRawBz(item.min)} - ${formatRawBz(item.max)}
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Total Bruto:</span>
+                            ${formatRawBz(totalMin)} - ${formatRawBz(totalMax)}
+                        </div>
+                        <div class="info-row">
+                             <span class="info-label">Estimativa Final:</span> 
+                             <span style="font-weight: bold; color: #fff;">${formatMoneyConverted(totalMin)}</span> 
+                             <span style="font-size: 10px;">até</span>
+                             <span style="font-weight: bold; color: #fff;">${formatMoneyConverted(totalMax)}</span>
+                        </div>
+                    </div>
+
+                    <!-- Preço Personalizado (Direita) -->
+                    <div class="info-section custom">
+                        <div class="info-label" style="text-align: right; margin-bottom: 0px; width: 100%;">Preço Personalizado</div>
+                        <div class="custom-controls">
+                            <input type="range" id="${rangeId}" min="${item.min}" max="${item.max}" step="0.01" value="${storedPrice}" 
+                                   oninput="updateCustomPrice(${index}, '${safeName}', this.value, 'range')" 
+                                   style="background: linear-gradient(to right, var(--primary-dark) ${percent}%, #444 ${percent}%)">
+                            <input type="number" id="${inputId}" min="${item.min}" max="${item.max}" step="0.01" value="${storedPrice}" 
+                                   oninput="updateCustomPrice(${index}, '${safeName}', this.value, 'input')">
+                        </div>
+                        <div id="${totalId}" class="custom-total">
+                            Total Bz: <span class="bz">${Math.floor(currentTotal).toLocaleString("pt-BR")} Bz</span><br>
+                            Total C: ${formatMoneyConverted(currentTotal)}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+      }
+
+      function updateCustomPrice(index, itemName, value, source) {
+        const qty = parseFloat(quantityInput.value) || 0;
+        const rangeInput = document.getElementById(`custom-range-${index}`);
+        const numberInput = document.getElementById(`custom-input-${index}`);
+        const totalDisplay = document.getElementById(`custom-total-${index}`);
+
+        let val = parseFloat(value);
+        if (isNaN(val)) val = 0;
+
+        if (typeof customPrices !== "undefined") {
+          customPrices[itemName] = val;
+          localStorage.setItem("customPrices", JSON.stringify(customPrices));
+        }
+
+        if (source === "range") {
+          numberInput.value = val;
+        } else {
+          rangeInput.value = val;
+        }
+
+        const min = parseFloat(rangeInput.min);
+        const max = parseFloat(rangeInput.max);
+
+        let percent = 0;
+        if (max > min) {
+          percent = ((val - min) / (max - min)) * 100;
+        }
+
+        percent = Math.min(Math.max(percent, 0), 100);
+
+        rangeInput.style.background = `linear-gradient(to right, var(--primary) ${percent}%, #444 ${percent}%)`;
+
+        const total = val * qty;
+        totalDisplay.innerHTML = `
+            Total Bz: <span class="bz">${Math.floor(total).toLocaleString("pt-BR")} Bz</span><br>
+            Total C: ${formatMoneyConverted(total)}
+        `;
+      }
+
+      function renderGroupedList(items, qty) {
+        resultsContainer.innerHTML = "";
+
+        const grouped = items.reduce((acc, item) => {
+          if (!acc[item.cat]) acc[item.cat] = [];
+          acc[item.cat].push(item);
+          return acc;
+        }, {});
+
+        let globalIndex = 0;
+        for (const [category, groupItems] of Object.entries(grouped)) {
+          const catHeader = document.createElement("div");
+          catHeader.className = "category-header";
+          catHeader.textContent = category;
+          resultsContainer.appendChild(catHeader);
+
+          groupItems.forEach((item) => {
+            const cardWrapper = document.createElement("div");
+
+            cardWrapper.innerHTML = createItemCard(item, qty, globalIndex++);
+            resultsContainer.appendChild(cardWrapper.firstElementChild);
+          });
+        }
+      }
+
+      function calculate() {
+        const query = searchInput.value.toLowerCase();
+        let qty = parseFloat(quantityInput.value);
+        if (!qty || qty < 0) qty = 0;
+
+        const currentDatabase = dataByProfession[currentTab] || [];
+
+        if (query.length === 0) {
+          renderGroupedList(currentDatabase, qty);
+          return;
+        }
+
+        const filteredItems = currentDatabase.filter((item) =>
+          item.name.toLowerCase().includes(query),
+        );
+
+        resultsContainer.innerHTML = "";
+
+        if (filteredItems.length === 0) {
+          resultsContainer.innerHTML =
+            '<div class="no-results">Nenhum item encontrado nesta categoria.</div>';
+          return;
+        }
+
+        filteredItems.forEach((item, index) => {
+          const cardWrapper = document.createElement("div");
+
+          cardWrapper.innerHTML = createItemCard(item, qty, index);
+          resultsContainer.appendChild(cardWrapper.firstElementChild);
+        });
+      }
+
+      searchInput.addEventListener("input", calculate);
+      quantityInput.addEventListener("input", calculate);
+
+      calculate();
+    </script>
+  </body>
+</html>
