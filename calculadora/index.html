@@ -1,0 +1,605 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculadora Icarus - Multi Profissão</title>
+    <style>
+      :root {
+        --primary: #00eeff; /* Azul Neon */
+        --primary-dark: #0d8d96;
+        --bg: #1a1a1a;
+        --card-bg: #2d2d2d;
+        --text: #ffffff;
+        --text-muted: #aaaaaa;
+        --border: #444;
+
+        /* Cores das Moedas */
+        --coin-oz: #ffd700; /* Dourado */
+        --coin-sz: #92b5c5; /* Prata Azulado */
+        --coin-bz: #cd7f32; /* Cobre/Bronze */
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: var(--bg);
+        color: var(--text);
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 600px;
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      h1 {
+        color: var(--primary);
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-size: 24px;
+        margin-bottom: 10px;
+      }
+
+      /* --- ESTILO DAS ABAS --- */
+      .tabs-container {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 10px;
+        flex-wrap: wrap;
+      }
+
+      .tab-btn {
+        background-color: var(--card-bg);
+        border: 1px solid var(--border);
+        color: var(--text-muted);
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 20px;
+        font-size: 14px;
+        text-transform: uppercase;
+        font-weight: bold;
+        transition: all 0.3s;
+      }
+
+      .tab-btn:hover {
+        border-color: var(--primary);
+        color: #fff;
+      }
+
+      .tab-btn.active {
+        background-color: var(--primary);
+        color: #000; /* Texto preto no fundo neon */
+        border-color: var(--primary);
+        box-shadow: 0 0 10px rgba(0, 238, 255, 0.4);
+      }
+
+      /* Input Group sticky */
+      .input-group {
+        background-color: var(--card-bg);
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        display: flex;
+        gap: 10px;
+        margin-bottom: 10px;
+        position: sticky;
+        top: 10px;
+        z-index: 100;
+        border: 1px solid var(--border);
+      }
+
+      input {
+        background-color: #404040;
+        border: 1px solid var(--border);
+        color: white;
+        padding: 12px;
+        border-radius: 4px;
+        font-size: 16px;
+        outline: none;
+      }
+
+      input:focus {
+        border-color: var(--primary);
+      }
+
+      #search {
+        flex-grow: 1;
+      }
+      #quantity {
+        width: 70px;
+        text-align: center;
+        font-weight: bold;
+      }
+
+      .results-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding-bottom: 50px;
+      }
+
+      .category-header {
+        color: var(--primary);
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 5px;
+        margin-top: 20px;
+        margin-bottom: 10px;
+        font-weight: bold;
+        letter-spacing: 1px;
+      }
+
+      .item-card {
+        background-color: var(--card-bg);
+        border-left: 4px solid var(--text-muted);
+        padding: 15px;
+        border-radius: 8px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        transition: transform 0.1s;
+      }
+
+      .item-card:hover {
+        border-left-color: var(--primary);
+        background-color: #363636;
+      }
+
+      .item-header {
+        text-align: center;
+        border-bottom: 1px solid #444;
+        padding-bottom: 8px;
+      }
+
+      .item-header h3 {
+        margin: 0;
+        font-size: 18px;
+        color: var(--primary);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .item-header .item-subtext {
+        font-size: 11px;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 11px;
+      }
+
+      .item-body {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        font-size: 12px;
+        align-items: center;
+      }
+
+      .info-section {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .info-section.basic {
+        border-right: 1px solid #444;
+        padding-right: 10px;
+        align-items: flex-start;
+      }
+
+      .info-section.custom {
+        padding-left: 10px;
+        align-items: flex-end;
+      }
+
+      /* Basic Info Styles */
+      .info-row {
+        margin-bottom: 2px;
+        color: #ccc;
+      }
+      .info-label {
+        color: #888;
+        font-size: 10px;
+        text-transform: uppercase;
+        margin-right: 5px;
+      }
+
+      /* Coin Colors */
+      .oz {
+        color: var(--coin-oz);
+        text-shadow: 0 0 2px rgba(255, 215, 0, 0.3);
+      }
+      .sz {
+        color: var(--coin-sz);
+        text-shadow: 0 0 2px rgba(79, 195, 247, 0.3);
+      }
+      .bz {
+        color: var(--coin-bz);
+      }
+
+      /* Custom Controls Styles - Compact */
+      .custom-controls {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        width: 20%;
+        justify-content: flex-end;
+        margin-bottom: 0px;
+      }
+
+      .custom-controls input[type="range"] {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 100px; /* Fixed smaller width */
+        flex-grow: 0;
+        height: 6px;
+        background: #444;
+        border-radius: 3px;
+        outline: none;
+        cursor: pointer;
+        padding: 0;
+        border: none;
+        margin: 0;
+      }
+
+      .custom-controls input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: var(--primary);
+        box-shadow: 0 0 4px var(--primary);
+        border: 2px solid #2d2d2d; /* Inner dot effect */
+        cursor: pointer;
+        transition: transform 0.2s;
+        margin-top: 0px; /* Center thumb */
+      }
+
+      .custom-controls input[type="range"]::-webkit-slider-thumb:hover {
+        transform: scale(1.1);
+      }
+
+      .custom-controls input[type="number"] {
+        width: 50px;
+        padding: 2px 5px;
+        text-align: right;
+        font-size: 11px;
+        height: 20px;
+        background-color: #404040;
+        border: 1px solid #555;
+        color: white;
+        border-radius: 3px;
+        /* Remove up and down arrows */
+        -moz-appearance: textfield;
+        appearance: textfield;
+      }
+
+      .custom-controls input[type="number"]::-webkit-outer-spin-button,
+      .custom-controls input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      .custom-total {
+        text-align: right;
+        font-size: 12px;
+        color: var(--primary);
+        line-height: 1.3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Calculadora Icarus</h1>
+
+        <div class="tabs-container">
+          <button
+            class="tab-btn active"
+            data-tab="cacador"
+            onclick="setTab('cacador')"
+          >
+            Caçador
+          </button>
+          <button
+            class="tab-btn"
+            data-tab="alquimista"
+            onclick="setTab('alquimista')"
+          >
+            Alquimista
+          </button>
+          <button
+            class="tab-btn"
+            data-tab="minerador"
+            onclick="setTab('minerador')"
+          >
+            Minerador
+          </button>
+          <button
+            class="tab-btn"
+            data-tab="artesao"
+            onclick="setTab('artesao')"
+          >
+            Artesão
+          </button>
+          <button
+            class="tab-btn"
+            data-tab="alfaiate"
+            onclick="setTab('alfaiate')"
+          >
+            Alfaiate
+          </button>
+        </div>
+      </header>
+
+      <div class="input-group">
+        <input
+          type="text"
+          id="search"
+          placeholder="Buscar item..."
+          autocomplete="off"
+        />
+        <input
+          type="number"
+          id="quantity"
+          value="1"
+          min="1"
+          placeholder="Qtd"
+        />
+      </div>
+
+      <div id="results" class="results-list"></div>
+    </div>
+
+    <!-- Caminhos ajustados para o diretório pai -->
+    <script src="../config.js"></script>
+    <script src="../security.js"></script>
+
+    <script>
+      const dataByProfession = {};
+    </script>
+    <script src="../professions/cacador.js"></script>
+    <script src="../professions/alquimista.js"></script>
+    <script src="../professions/minerador.js"></script>
+    <script src="../professions/artesao.js"></script>
+    <script src="../professions/alfaiate.js"></script>
+
+    <script>
+      let currentTab = "cacador";
+
+      const searchInput = document.getElementById("search");
+      const quantityInput = document.getElementById("quantity");
+      const resultsContainer = document.getElementById("results");
+
+      let customPrices = {};
+      try {
+        const saved = localStorage.getItem("customPrices");
+        if (saved) {
+          customPrices = JSON.parse(saved);
+        }
+      } catch (e) {
+        console.error("Error loading custom prices:", e);
+      }
+
+      function setTab(tabName) {
+        currentTab = tabName;
+        localStorage.setItem("lastTab", tabName);
+
+        const buttons = document.querySelectorAll(".tab-btn");
+        buttons.forEach((btn) => {
+          btn.classList.remove("active");
+          if (btn.dataset.tab === tabName) {
+            btn.classList.add("active");
+          }
+        });
+
+        calculate();
+      }
+
+      function formatMoneyConverted(amount) {
+        let totalBz = Math.floor(amount);
+        let oz = Math.floor(totalBz / 10000);
+        let remainderAfterOz = totalBz % 10000;
+        let sz = Math.floor(remainderAfterOz / 100);
+        let bz = remainderAfterOz % 100;
+
+        let parts = [];
+        if (oz > 0) parts.push(`<span class="oz">${oz} Oz</span>`);
+        if (sz > 0) parts.push(`<span class="sz">${sz} Sz</span>`);
+        if (bz > 0 || parts.length === 0) {
+          parts.push(`<span class="bz">${bz} Bz</span>`);
+        } else if (amount % 1 !== 0) {
+          let decimals = (amount % 1).toFixed(2).substring(2);
+          parts.push(`<span class="bz">0,${decimals} Bz</span>`);
+        }
+        return parts.join(", ");
+      }
+
+      function formatRawBz(value) {
+        return `<span class="bz">${value.toLocaleString("pt-BR", { maximumFractionDigits: 2 })} Bz</span>`;
+      }
+
+      function createItemCard(item, qty, index) {
+        const totalMin = item.min * qty;
+        const totalMax = item.max * qty;
+
+        const storedPrice =
+          customPrices[item.name] !== undefined
+            ? customPrices[item.name]
+            : item.min;
+        const currentTotal = storedPrice * qty;
+
+        let percent = 0;
+        if (item.max > item.min) {
+          percent = ((storedPrice - item.min) / (item.max - item.min)) * 100;
+        }
+        percent = Math.min(Math.max(percent, 0), 100);
+
+        const inputId = `custom-input-${index}`;
+        const rangeId = `custom-range-${index}`;
+        const totalId = `custom-total-${index}`;
+
+        const safeName = item.name.replace(/'/g, "\\'");
+
+        return `
+                <div class="item-card">
+                    <div class="item-header">
+                        <h3>${item.name}</h3>
+                    </div>
+
+                    <div class="item-body">
+                        <!-- Infos Básicos (Esquerda) -->
+                        <div class="info-section basic">
+                            <div class="info-row">
+                                <span class="info-label">Unitário:</span>
+                                ${formatRawBz(item.min)} - ${formatRawBz(item.max)}
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Total Bruto:</span>
+                                ${formatRawBz(totalMin)} - ${formatRawBz(totalMax)}
+                            </div>
+                            <div class="info-row">
+                                 <span class="info-label">Estimativa Final:</span>
+                                 <span style="font-weight: bold; color: #fff;">${formatMoneyConverted(totalMin)}</span>
+                                 <span style="font-size: 10px;">até</span>
+                                 <span style="font-weight: bold; color: #fff;">${formatMoneyConverted(totalMax)}</span>
+                            </div>
+                        </div>
+
+                        <!-- Preço Personalizado (Direita) -->
+                        <div class="info-section custom">
+                            <div class="info-label" style="text-align: right; margin-bottom: 0px; width: 100%;">Preço Personalizado</div>
+                            <div class="custom-controls">
+                                <input type="range" id="${rangeId}" min="${item.min}" max="${item.max}" step="0.01" value="${storedPrice}"
+                                       oninput="updateCustomPrice(${index}, '${safeName}', this.value, 'range')"
+                                       style="background: linear-gradient(to right, var(--primary-dark) ${percent}%, #444 ${percent}%)">
+                                <input type="number" id="${inputId}" min="${item.min}" max="${item.max}" step="0.01" value="${storedPrice}"
+                                       oninput="updateCustomPrice(${index}, '${safeName}', this.value, 'input')">
+                            </div>
+                            <div id="${totalId}" class="custom-total">
+                                Total Bz: <span class="bz">${Math.floor(currentTotal).toLocaleString("pt-BR")} Bz</span><br>
+                                Total C: ${formatMoneyConverted(currentTotal)}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+      }
+
+      function updateCustomPrice(index, itemName, value, source) {
+        const qty = parseFloat(quantityInput.value) || 0;
+        const rangeInput = document.getElementById(`custom-range-${index}`);
+        const numberInput = document.getElementById(`custom-input-${index}`);
+        const totalDisplay = document.getElementById(`custom-total-${index}`);
+
+        let val = parseFloat(value);
+        if (isNaN(val)) val = 0;
+
+        if (typeof customPrices !== "undefined") {
+          customPrices[itemName] = val;
+          localStorage.setItem("customPrices", JSON.stringify(customPrices));
+        }
+
+        if (source === "range") {
+          numberInput.value = val;
+        } else {
+          rangeInput.value = val;
+        }
+
+        const min = parseFloat(rangeInput.min);
+        const max = parseFloat(rangeInput.max);
+
+        let percent = 0;
+        if (max > min) {
+          percent = ((val - min) / (max - min)) * 100;
+        }
+
+        percent = Math.min(Math.max(percent, 0), 100);
+
+        rangeInput.style.background = `linear-gradient(to right, var(--primary) ${percent}%, #444 ${percent}%)`;
+
+        const total = val * qty;
+        totalDisplay.innerHTML = `
+                Total Bz: <span class="bz">${Math.floor(total).toLocaleString("pt-BR")} Bz</span><br>
+                Total C: ${formatMoneyConverted(total)}
+            `;
+      }
+
+      function renderGroupedList(items, qty) {
+        resultsContainer.innerHTML = "";
+
+        const grouped = items.reduce((acc, item) => {
+          if (!acc[item.cat]) acc[item.cat] = [];
+          acc[item.cat].push(item);
+          return acc;
+        }, {});
+
+        let globalIndex = 0;
+        for (const [category, groupItems] of Object.entries(grouped)) {
+          const catHeader = document.createElement("div");
+          catHeader.className = "category-header";
+          catHeader.textContent = category;
+          resultsContainer.appendChild(catHeader);
+
+          groupItems.forEach((item) => {
+            const cardWrapper = document.createElement("div");
+
+            cardWrapper.innerHTML = createItemCard(item, qty, globalIndex++);
+            resultsContainer.appendChild(cardWrapper.firstElementChild);
+          });
+        }
+      }
+
+      function calculate() {
+        const query = searchInput.value.toLowerCase();
+        let qty = parseFloat(quantityInput.value);
+        if (!qty || qty < 0) qty = 0;
+
+        const currentDatabase = dataByProfession[currentTab] || [];
+
+        if (query.length === 0) {
+          renderGroupedList(currentDatabase, qty);
+          return;
+        }
+
+        const filteredItems = currentDatabase.filter((item) =>
+          item.name.toLowerCase().includes(query),
+        );
+
+        resultsContainer.innerHTML = "";
+
+        if (filteredItems.length === 0) {
+          resultsContainer.innerHTML =
+            '<div class="no-results">Nenhum item encontrado nesta categoria.</div>';
+          return;
+        }
+
+        filteredItems.forEach((item, index) => {
+          const cardWrapper = document.createElement("div");
+
+          cardWrapper.innerHTML = createItemCard(item, qty, index);
+          resultsContainer.appendChild(cardWrapper.firstElementChild);
+        });
+      }
+
+      searchInput.addEventListener("input", calculate);
+      quantityInput.addEventListener("input", calculate);
+
+      const savedTab = localStorage.getItem("lastTab");
+      setTab(savedTab || "cacador");
+    </script>
+  </body>
+</html>
