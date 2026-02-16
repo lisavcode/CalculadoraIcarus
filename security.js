@@ -168,19 +168,73 @@
     document.body.innerText = `${Config.Messages.DRMFailure}\n(Domain: ${domain})`;
   }
 
-  // --- 6. Sistema de Autenticação por ID ---
+  // --- 6. Sistema de Autenticação por ID (Fingerprint) ---
   window.AuthSystem = {
-    getMachineId: function () {
-      let id = localStorage.getItem("icarus_device_id");
-      if (!id) {
-        // Gera um ID simples e aleatório se não existir
-        id =
-          "USR-" +
-          Math.random().toString(36).substr(2, 9).toUpperCase() +
-          "-" +
-          Date.now().toString(36).toUpperCase();
-        localStorage.setItem("icarus_device_id", id);
+    // Gera um hash simples (DJB2) a partir de uma string
+    hashString: function (str) {
+      let hash = 5381;
+      for (let i = 0; i < str.length; i++) {
+        hash = (hash * 33) ^ str.charCodeAt(i);
       }
+      return (hash >>> 0).toString(16).toUpperCase();
+    },
+
+    getFingerprint: function () {
+      try {
+        // 1. Canvas Fingerprint (Renderização única por navegador/GPU)
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = 200;
+        canvas.height = 50;
+
+        ctx.textBaseline = "top";
+        ctx.font = "14px 'Arial'";
+        ctx.textBaseline = "alphabetic";
+        ctx.fillStyle = "#f60";
+        ctx.fillRect(125, 1, 62, 20);
+        ctx.fillStyle = "#069";
+        ctx.fillText("Icarus Auth v1", 2, 15);
+        ctx.fillStyle = "rgba(102, 204, 0, 0.7)";
+        ctx.fillText("Icarus Auth v1", 4, 17);
+
+        const canvasData = canvas.toDataURL();
+
+        // 2. Propriedades de Tela e Navegador
+        const screenData = [
+          window.screen.width,
+          window.screen.height,
+          window.screen.colorDepth,
+          navigator.language,
+          navigator.hardwareConcurrency,
+          navigator.deviceMemory || "unknown",
+          new Date().getTimezoneOffset(),
+        ].join("|");
+
+        // Combina tudo
+        const rawFingerprint = canvasData + "||" + screenData;
+
+        return this.hashString(rawFingerprint);
+      } catch (e) {
+        console.error("Erro ao gerar fingerprint:", e);
+        // Fallback para aleatório se der erro (não deve acontecer)
+        return Math.random().toString(36).substr(2, 9).toUpperCase();
+      }
+    },
+
+    getMachineId: function () {
+      // Tenta recuperar do localStorage para performance
+      let id = localStorage.getItem("icarus_device_id");
+
+      // Se não tiver, ou se quisermos forçar a verificação de integridade (re-gerar sempre garante persistência pós-limpeza)
+      // Vamos RE-GERAR sempre para garantir que, se o cara limpar o cache, o ID volta a ser o mesmo.
+      const fingerprint = this.getFingerprint();
+      const newId = "USR-" + fingerprint;
+
+      if (id !== newId) {
+        localStorage.setItem("icarus_device_id", newId);
+        id = newId;
+      }
+
       return id;
     },
 
@@ -189,6 +243,10 @@
 
       const myId = this.getMachineId();
       const allowed = Config.Auth.AuthorizedIDs.includes(myId);
+
+      // Log para debug (ajuda o usuário a ver o ID no console se precisar)
+      if (Config.Debug)
+        console.log("[Auth] Meu ID:", myId, "Autorizado?", allowed);
 
       return allowed;
     },
