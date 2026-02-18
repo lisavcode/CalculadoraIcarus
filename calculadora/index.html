@@ -84,6 +84,62 @@
         box-shadow: 0 0 10px rgba(0, 238, 255, 0.4);
       }
 
+      .count-badge {
+        background-color: var(--primary);
+        color: #000;
+        border-radius: 12px;
+        padding: 2px 8px;
+        font-size: 11px;
+        margin-left: 8px;
+        font-weight: bold;
+        vertical-align: middle;
+        display: inline-block;
+      }
+
+      .tab-btn.active .count-badge {
+        background-color: #fff;
+        color: #000;
+      }
+
+      /* Era Badges */
+      .era-badge {
+        font-size: 10px;
+        padding: 2px 6px;
+        border-radius: 4px;
+        margin-left: 8px;
+        text-transform: uppercase;
+        font-weight: bold;
+        display: inline-block;
+        vertical-align: middle;
+        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+      }
+
+      .era-1 {
+        background-color: #4caf50;
+        color: white;
+      } /* Green - Beginner */
+      .era-2 {
+        background-color: #2196f3;
+        color: white;
+      } /* Blue - Intermediate */
+      .era-3 {
+        background-color: #9c27b0;
+        color: white;
+      } /* Purple - Advanced */
+      .era-4 {
+        background-color: #ff9800;
+        color: white;
+      } /* Orange - Legendary */
+      .era-5 {
+        background-color: #f44336;
+        color: white;
+      } /* Red - Extreme */
+      .era-6 {
+        background-color: #000000;
+        color: #ffeb3b;
+        border: 1px solid #ffeb3b;
+      } /* Black/Yellow - Special */
+
       /* Input Group sticky */
       .input-group {
         background-color: var(--card-bg);
@@ -454,10 +510,15 @@
 
         const safeName = item.name.replace(/'/g, "\\'");
 
+        let eraBadge = "";
+        if (item.era) {
+          eraBadge = `<span class="era-badge era-${item.era}">Era ${item.era}</span>`;
+        }
+
         return `
                 <div class="item-card">
                     <div class="item-header">
-                        <h3>${item.name}</h3>
+                        <h3>${item.name} ${eraBadge}</h3>
                     </div>
 
                     <div class="item-body">
@@ -600,6 +661,29 @@
 
       const savedTab = localStorage.getItem("lastTab");
       setTab(savedTab || "cacador");
+
+      function updateProfessionCounts() {
+        // Itera sobre as profissões carregadas
+        for (const [profession, items] of Object.entries(dataByProfession)) {
+          // Busca o botão correspondente
+          const btn = document.querySelector(
+            `.tab-btn[data-tab="${profession}"]`,
+          );
+          if (btn) {
+            // Cria ou atualiza o badge
+            let badge = btn.querySelector(".count-badge");
+            if (!badge) {
+              badge = document.createElement("span");
+              badge.className = "count-badge";
+              btn.appendChild(badge);
+            }
+            badge.innerText = items.length;
+          }
+        }
+      }
+
+      // Atualiza os contadores ao carregar
+      updateProfessionCounts();
     </script>
   </body>
 </html>

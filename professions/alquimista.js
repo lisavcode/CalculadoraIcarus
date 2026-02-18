@@ -1,267 +1,161 @@
 dataByProfession.alquimista = [
-  // ======================
   // BÁSICOS
-  // ======================
-  {
-    name: "Extrato de Babosa Fraco",
-    min: 2,
-    max: 2,
-    cat: "Poções",
-  },
-  { name: "Extrato de Babosa", min: 7, max: 8, cat: "Poções" },
-  {
-    name: "Extrato de Babosa Concentrado",
-    min: 38,
-    max: 46,
-    cat: "Poções",
-  },
-  {
-    name: "Extrato de Babosa Puro",
-    min: 99,
-    max: 118,
-    cat: "Poções",
-  },
-  {
-    name: "Mystical Healing Potion",
-    min: 168,
-    max: 199,
-    cat: "Poções",
-  },
-  {
-    name: "Extrato de Babosa Imbuído",
-    min: 229,
-    max: 275,
-    cat: "Poções",
-  },
-  { name: "Óleo", min: 2, max: 3, cat: "basicos" },
-  { name: "Sangue", min: 3, max: 3, cat: "basicos" },
-  { name: "Essência Brilhante", min: 8, max: 9, cat: "basicos" },
-  { name: "Qualquer Crustáceos", min: 2, max: 3, cat: "basicos" },
-  { name: "Peixes", min: 2, max: 3, cat: "basicos" },
-  { name: "Peixes (Atributos)", min: 4, max: 5, cat: "basicos" },
-  { name: "Vulcan Bee", min: 2, max: 2, cat: "basicos" },
-  { name: "Folhas de Babosa", min: 1, max: 1, cat: "basicos" },
-  { name: "Incenso", min: 8, max: 9, cat: "basicos" },
-  { name: "Osso Maculado", min: 27, max: 33, cat: "basicos" },
-  { name: "Consolidador de Pedras", min: 2, max: 2, cat: "basicos" },
-  {
-    name: "Poção de Brânquia de Peixe",
-    min: 317,
-    max: 380,
-    cat: "basicos",
-  },
-  { name: "Rocha Maculada", min: 15, max: 17, cat: "basicos" },
+  { name: "Óleo", min: 2, max: 3, cat: "Básicos", era: 1 },
+  { name: "Sangue", min: 3, max: 3, cat: "Básicos", era: 1 },
+  { name: "Essência Brilhante", min: 8, max: 9, cat: "Básicos", era: 1 },
+  { name: "Qualquer Crustáceos", min: 2, max: 3, cat: "Básicos", era: 1 },
+  { name: "Peixes", min: 2, max: 3, cat: "Básicos", era: 1 },
+  { name: "Peixes (Atributos)", min: 4, max: 5, cat: "Básicos", era: 1 },
+  { name: "Vulcan Bee", min: 2, max: 2, cat: "Básicos", era: 1 },
+  { name: "Folhas de Babosa", min: 1, max: 1, cat: "Básicos", era: 1 },
+  { name: "Incenso", min: 8, max: 9, cat: "Básicos", era: 1 },
+  { name: "Osso Maculado", min: 27, max: 33, cat: "Básicos", era: 1 },
+  { name: "Consolidador de Pedras", min: 2, max: 2, cat: "Básicos", era: 2 },
+  { name: "Poção de brânquia de peixe", min: 317, max: 380, cat: "Básicos", era: 3 }, // Corrigido
+  { name: "Rocha Maculada", min: 15, max: 17, cat: "Básicos", era: 3 },
+  { name: "Farinha de Ossos", min: 1, max: 2, cat: "Básicos", era: 1 },
+  { name: "Pó de Fogobruxo", min: 31, max: 37, cat: "Básicos", era: 2 },
+  { name: "Base Alquímica", min: 9, max: 10, cat: "Básicos", era: 2 },
+  { name: "Fogaço", min: 3, max: 3, cat: "Básicos", era: 2 },
+  { name: "Joia de Rádio", min: 80, max: 96, cat: "Básicos", era: 2 },
+  { name: "Pó de Ouro", min: 2, max: 2, cat: "Básicos", era: 2 },
+  { name: "Pó de Prata", min: 1, max: 2, cat: "Básicos", era: 2 },
+  { name: "Dracopólvora", min: 89, max: 107, cat: "Básicos", era: 3 }, // Corrigido
+  { name: "Ataduras Rudimentares", min: 1, max: 1, cat: "Básicos", era: 1 },
+  { name: "Ataduras de Cura", min: 46, max: 55, cat: "Básicos", era: 1 },
+  { name: "Atadura Anestesiante", min: 83, max: 99, cat: "Básicos", era: 1 },
+  { name: "Ataduras Bloqueadoras", min: 156, max: 187, cat: "Básicos", era: 2 }, // Corrigido
+  { name: "Ataduras com Infusão", min: 416, max: 499, cat: "Básicos", era: 3 }, // Corrigido
+  { name: "Adubo", min: 8, max: 9, cat: "Básicos", era: 1 },
+  { name: "Adubo Potente", min: 32, max: 38, cat: "Básicos", era: 2 },
+  { name: "Tiny potion bottle", min: 3, max: 3, cat: "Básicos", era: 1 },
+  { name: "Small potion bottle", min: 6.5, max: 9, cat: "Básicos", era: 1 },
+  { name: "Potion bottle", min: 13, max: 16, cat: "Básicos", era: 1 },
+  { name: "Large potion bottle", min: 33, max: 39, cat: "Básicos", era: 1 },
+  { name: "Huge potion bottle", min: 66, max: 78, cat: "Básicos", era: 1 },
+  { name: "Azure Essence", min: 5, max: 6, cat: "Básicos", era: 1 },
+  { name: "Qualquer Planta", min: 1, max: 1, cat: "Básicos", era: 1 },
+  { name: "Cogumelo Esporoso", min: 1, max: 1, cat: "Básicos", era: 1 },
+  { name: "Grude Brilhante", min: 1, max: 1, cat: "Básicos", era: 1 },
+  { name: "Bitter Crinilla Dust", min: 2, max: 3, cat: "Básicos", era: 1 },
+  { name: "Blue Bell Dust", min: 2, max: 3, cat: "Básicos", era: 1 },
+  { name: "Dragonfern Dust", min: 2, max: 3, cat: "Básicos", era: 1 },
+  { name: "Qualquer Lótus", min: 1, max: 2, cat: "Básicos", era: 1 },
+  { name: "Flor de Lótus Negra", min: 4, max: 6, cat: "Básicos", era: 1 },
+  { name: "Flor de Lótus Dourada", min: 10, max: 15, cat: "Básicos", era: 1 },
+  { name: "Flor de Lótus Gélida", min: 8, max: 10, cat: "Básicos", era: 1 },
+  { name: "Pós de Lótus", min: 2, max: 3, cat: "Básicos", era: 1 },
+  { name: "Pós de Lótus Negra", min: 5, max: 6, cat: "Básicos", era: 1 },
+  { name: "Pós de Lótus Dourada", min: 13, max: 16, cat: "Básicos", era: 1 },
+  { name: "Pós de Lótus Gélida", min: 10, max: 12, cat: "Básicos", era: 1 },
+  { name: "Firebloom", min: 10, max: 15, cat: "Básicos", era: 1 },
+  { name: "Shadow Flower Dust", min: 6, max: 8, cat: "Básicos", era: 1 },
+  { name: "Elarikan Dust", min: 117, max: 140, cat: "Básicos", era: 4 }, // Corrigido
 
-  // ======================
-  // SEMENTES ADG
-  // ======================
-  {
-    name: "Sementes de Lótus Púrpura",
-    min: 8,
-    max: 12,
-    cat: "sementes",
-  },
-  {
-    name: "Sementes de Lótus Amarela",
-    min: 8,
-    max: 12,
-    cat: "sementes",
-  },
-  {
-    name: "Sementes de Lótus Carmesim",
-    min: 10,
-    max: 15,
-    cat: "sementes",
-  },
+  // AOC AVANÇADOS
+  { name: "Ink", min: 20, max: 23, cat: "AOC Avançados", era: 1 },
+  { name: "Arcane Essence", min: 25, max: 30, cat: "AOC Avançados", era: 2 },
+  { name: "Astral WaterSkin", min: 936, max: 1124, cat: "AOC Avançados", era: 2 }, // Corrigido
+  { name: "Blessing of Keldora", min: 46, max: 55, cat: "AOC Avançados", era: 2 },
+  { name: "(Warpaint) Ashura's Blessing", min: 871, max: 1045, cat: "AOC Avançados", era: 2 }, // Corrigido
+  { name: "Stormcaller's Breathing Potion", min: 14, max: 17, cat: "AOC Avançados", era: 2 },
+  { name: "Fragment of Demise", min: 203, max: 243, cat: "AOC Avançados", era: 4 }, // Corrigido
+  { name: "Fragment of Fury", min: 195, max: 234, cat: "AOC Avançados", era: 4 }, // Corrigido
+  { name: "Fragment of Purity", min: 131, max: 158, cat: "AOC Avançados", era: 4 }, // Corrigido
+  { name: "Crescent Water", min: 35, max: 42, cat: "AOC Avançados", era: 4 },
 
-  // ======================
-  // FORRAGENS
-  // ======================
-  { name: "Turaniana", min: 78, max: 94, cat: "forragens" },
-  { name: "Picta", min: 148, max: 175, cat: "forragens" },
-  {
-    name: "Mascote Enfeitiçada/Saborosa",
-    min: 78,
-    max: 94,
-    cat: "forragens",
-  },
-  { name: "Poitan", min: 78, max: 94, cat: "forragens" },
+  // POÇÕES CONSUMÍVEIS
+  { name: "(Potion) Soul Essence - Lesser", min: 15, max: 18, cat: "Poções Consumíveis", era: 1 },
+  { name: "(Potion) Soul Essence", min: 34, max: 41, cat: "Poções Consumíveis", era: 1 },
+  { name: "(Potion) Soul Essence - Potent", min: 99, max: 119, cat: "Poções Consumíveis", era: 1 }, // Corrigido
+  { name: "(Potion) Soul Essence - Enhanced", min: 186, max: 223, cat: "Poções Consumíveis", era: 1 }, // Corrigido
+  { name: "(Potion) Soul Essence - Powerful", min: 326, max: 391, cat: "Poções Consumíveis", era: 1 }, // Corrigido
+  { name: "(Potion) Soul Essence - Mystical", min: 1145, max: 1374, cat: "Poções Consumíveis", era: 1 }, // Corrigido
+  { name: "Poção de Lótus Amarela", min: 13, max: 16, cat: "Poções Consumíveis", era: 1 },
+  { name: "Skill Potion", min: 10, max: 12, cat: "Poções Consumíveis", era: 1 },
+  { name: "Poção de Fôlego", min: 61, max: 73, cat: "Poções Consumíveis", era: 1 },
+  { name: "Curativo Violeta", min: 39, max: 47, cat: "Poções Consumíveis", era: 1 },
+  { name: "Poção da Memória Bestial", min: 46, max: 56, cat: "Poções Consumíveis", era: 2 },
+  { name: "Poção do Aprendizado Natural", min: 41, max: 50, cat: "Poções Consumíveis", era: 2 },
+  { name: "Elixir de Veemência", min: 94, max: 112, cat: "Poções Consumíveis", era: 2 }, // Corrigido
+  { name: "Demon's Bane", min: 35, max: 42, cat: "Poções Consumíveis", era: 2 },
+  { name: "Poção de Atributo", min: 23, max: 27, cat: "Poções Consumíveis", era: 2 },
+  { name: "Poção de Brânquia de Peixe", min: 23, max: 27, cat: "Poções Consumíveis", era: 2 },
+  { name: "Poção de Dote", min: 23, max: 27, cat: "Poções Consumíveis", era: 2 },
+  { name: "Poção Lótus Dourada", min: 44, max: 52, cat: "Poções Consumíveis", era: 2 },
+  { name: "Poção Lótus Gélida", min: 38, max: 46, cat: "Poções Consumíveis", era: 2 },
+  { name: "Poção de Lótus Negra", min: 33, max: 40, cat: "Poções Consumíveis", era: 2 },
+  { name: "Poção Lótus Púrpura", min: 25, max: 30, cat: "Poções Consumíveis", era: 2 },
+  { name: "Blessing of Keldora", min: 46, max: 55, cat: "Poções Consumíveis", era: 3 },
+  { name: "Tonic of Enchanced Preservation", min: 329, max: 395, cat: "Poções Consumíveis", era: 3 }, // Corrigido
 
-  // ======================
-  // ÓLEOS
-  // ======================
-  { name: "Óleo da Abundância", min: 377, max: 452, cat: "oleos" },
-  { name: "Óleo da Agonia", min: 377, max: 452, cat: "oleos" },
-  { name: "Óleo da Concussão", min: 377, max: 452, cat: "oleos" },
-  { name: "Óleo do Equilíbrio", min: 377, max: 452, cat: "oleos" },
-  { name: "Óleo de Penetração", min: 377, max: 452, cat: "oleos" },
+  // POÇÃO BABOSA
+  { name: "Extrato de Babosa Fraco", min: 2, max: 2, cat: "Poção Babosa", era: 1 },
+  { name: "Extrato de Babosa", min: 7, max: 8, cat: "Poção Babosa", era: 1 },
+  { name: "Aloe Seed Extract", min: 52, max: 62, cat: "Poção Babosa", era: 1 },
+  { name: "Extrato de Babosa Concentrado", min: 38, max: 46, cat: "Poção Babosa", era: 2 },
+  { name: "Extrato de Babosa Puro", min: 99, max: 119, cat: "Poção Babosa", era: 2 }, // Corrigido
+  { name: "Mystical Healing Potion", min: 166, max: 199, cat: "Poção Babosa", era: 2 }, // Corrigido
+  { name: "Extrato de Babosa Imbuído", min: 229, max: 275, cat: "Poção Babosa", era: 3 }, // Corrigido
 
-  // ======================
-  // TÓXINAS
-  // ======================
-  {
-    name: "Veneno da Rainha-Escorpião",
-    min: 69,
-    max: 83,
-    cat: "toxinas",
-  },
-  {
-    name: "Veneno do Terror das Dunas",
-    min: 28,
-    max: 33,
-    cat: "toxinas",
-  },
+  // POÇÕES MATERIAL
+  { name: "Potion Common Small", min: 3, max: 3, cat: "Poções Material", era: 1 },
+  { name: "Potion Common Medium", min: 6, max: 7, cat: "Poções Material", era: 1 },
+  { name: "Potion Common Large", min: 9, max: 10, cat: "Poções Material", era: 1 },
+  { name: "Mystical Potion", min: 266, max: 320, cat: "Poções Material", era: 3 }, // Corrigido
+  { name: "Demon Blood Potion", min: 1014, max: 1217, cat: "Poções Material", era: 4 }, // Corrigido
+  { name: "Potion Liquid of Elarikan", min: 1112, max: 1334, cat: "Poções Material", era: 4 }, // Corrigido
+  { name: "Death Whisper Potion", min: 492, max: 590, cat: "Poções Material", era: 6 }, // Corrigido
 
-  // ======================
-  // EXPLOSIVOS
-  // ======================
-  { name: "Jarro Explosivo", min: 160, max: 192, cat: "explosivos" },
-
-  // ======================
-  // PLAGUE
-  // ======================
-  {
-    name: "Elarikan Plague (MOD)",
-    min: 4186,
-    max: 5023,
-    cat: "plague",
-  },
-  { name: "Essence of Binding", min: 299, max: 359, cat: "plague" },
-  { name: "Plague Crystal", min: 3392, max: 4071, cat: "plague" },
-  { name: "Runic Enchantment", min: 4995, max: 5994, cat: "plague" },
-
-  // ======================
-  // ORBES
-  // ======================
-  { name: "Orbe de Água", min: 8, max: 9, cat: "orbes" },
-  { name: "Orbe de Fogo Demoníaco", min: 30, max: 35, cat: "orbes" },
-  { name: "Orbe de Lótus Púrpura", min: 24, max: 29, cat: "orbes" },
-  { name: "Orbe Gasosa", min: 17, max: 20, cat: "orbes" },
-  { name: "Orbe Oleosa", min: 13, max: 16, cat: "orbes" },
-
-  // ======================
-  // POÇÕES – MATERIAL
-  // ======================
-  {
-    name: "Potion Common Small",
-    min: 3,
-    max: 3,
-    cat: "pocoes_material",
-  },
-  {
-    name: "Potion Common Medium",
-    min: 6,
-    max: 7,
-    cat: "pocoes_material",
-  },
-  {
-    name: "Potion Common Large",
-    min: 9,
-    max: 10,
-    cat: "pocoes_material",
-  },
-  {
-    name: "Mystical Potion",
-    min: 268,
-    max: 320,
-    cat: "pocoes_material",
-  },
-  {
-    name: "Demon Blood Potion",
-    min: 1014,
-    max: 1217,
-    cat: "pocoes_material",
-  },
-  {
-    name: "Potion Liquid of Elarikan",
-    min: 1112,
-    max: 1334,
-    cat: "pocoes_material",
-  },
-  {
-    name: "Death Whisper Potion",
-    min: 4929,
-    max: 5907,
-    cat: "pocoes_material",
-  },
-
-  // ======================
   // POWDER
-  // ======================
-  { name: "Moon Dust", min: 6, max: 7, cat: "powder" },
-  { name: "Mystical Dust", min: 7, max: 9, cat: "powder" },
-  { name: "Elarikan Powder", min: 117, max: 140, cat: "powder" },
+  { name: "Moon Dust", min: 6, max: 7, cat: "Powder", era: 2 },
+  { name: "Mystical Dust", min: 7, max: 9, cat: "Powder", era: 2 },
+  { name: "Elarikan Powder", min: 117, max: 140, cat: "Powder", era: 4 }, // Corrigido
 
-  // ======================
-  // POÇÕES – CONSUMÍVEL
-  // ======================
-  {
-    name: "Poção de Lótus Amarela",
-    min: 13,
-    max: 16,
-    cat: "pocoes_consumivel",
-  },
-  { name: "Skill Potion", min: 10, max: 12, cat: "pocoes_consumivel" },
-  {
-    name: "Poção de Fôlego",
-    min: 61,
-    max: 73,
-    cat: "pocoes_consumivel",
-  },
-  {
-    name: "Curativo Violeta",
-    min: 39,
-    max: 47,
-    cat: "pocoes_consumivel",
-  },
-  {
-    name: "Poção da Memória Bestial",
-    min: 48,
-    max: 58,
-    cat: "pocoes_consumivel",
-  },
-  {
-    name: "Poção do Aprendizado Natural",
-    min: 41,
-    max: 50,
-    cat: "pocoes_consumivel",
-  },
-  {
-    name: "Elixir de Vivência",
-    min: 94,
-    max: 112,
-    cat: "pocoes_consumivel",
-  },
-  { name: "Demon's Bane", min: 35, max: 42, cat: "pocoes_consumivel" },
-  {
-    name: "Poção de Atributo",
-    min: 23,
-    max: 27,
-    cat: "pocoes_consumivel",
-  },
-  {
-    name: "Poção de Brânquia de Peixe",
-    min: 23,
-    max: 27,
-    cat: "pocoes_consumivel",
-  },
-  { name: "Poção de Dote", min: 25, max: 30, cat: "pocoes_consumivel" },
-  {
-    name: "Poção Lótus Dourada",
-    min: 44,
-    max: 52,
-    cat: "pocoes_consumivel",
-  },
-  {
-    name: "Poção de Lótus Gélida",
-    min: 38,
-    max: 46,
-    cat: "pocoes_consumivel",
-  },
-  {
-    name: "Poção de Lótus Negra",
-    min: 33,
-    max: 40,
-    cat: "pocoes_consumivel",
-  },
+  // TINTURAS
+  { name: "Clareador de Tintas", min: 13, max: 16, cat: "Tinturas", era: 1 },
+  { name: "Escurecedor de Tintas", min: 8, max: 10, cat: "Tinturas", era: 1 },
+  { name: "Pincel de Tinta", min: 8, max: 9, cat: "Tinturas", era: 1 },
+  { name: "Tintura Básica", min: 9, max: 11, cat: "Tinturas", era: 1 },
+  { name: "Tintura Básica Clara", min: 29, max: 34, cat: "Tinturas", era: 1 },
+  { name: "Tintura Básica Escura", min: 23, max: 27, cat: "Tinturas", era: 1 },
+  { name: "Tintura Preta", min: 19, max: 23, cat: "Tinturas", era: 1 },
+  { name: "Tintura Branca", min: 14, max: 17, cat: "Tinturas", era: 1 },
+  { name: "Silver Dye", min: 23, max: 28, cat: "Tinturas", era: 2 },
+  { name: "Gold Dye", min: 32, max: 38, cat: "Tinturas", era: 2 },
+  { name: "Enchanted Basic Glow", min: 138, max: 166, cat: "Tinturas", era: 2 }, // Corrigido
+  { name: "Enchanted Teal Glow", min: 163, max: 196, cat: "Tinturas", era: 2 }, // Corrigido
+
+  // ORBES
+  { name: "Orbe de Água", min: 8, max: 9, cat: "Orbes", era: 1 },
+  { name: "Orbe de Fogo Demoníaco", min: 30, max: 35, cat: "Orbes", era: 1 },
+  { name: "Orbe de Lótus Púrpura", min: 24, max: 29, cat: "Orbes", era: 1 },
+  { name: "Orbe Gasosa", min: 17, max: 20, cat: "Orbes", era: 1 },
+  { name: "Orbe Oleosa", min: 13, max: 16, cat: "Orbes", era: 1 },
+
+  // PINTURAS
+  { name: "Tatuagens Básicas", min: 23, max: 28, cat: "Pinturas", era: 1 },
+  { name: "Tatuagens com carvão", min: 12, max: 14, cat: "Pinturas", era: 1 },
+  { name: "Tatuagens com sangue", min: 15, max: 18, cat: "Pinturas", era: 1 },
+  { name: "Tatuagens com icor", min: 13, max: 15, cat: "Pinturas", era: 1 },
+  { name: "Tatuagens com piche", min: 12, max: 14, cat: "Pinturas", era: 1 },
+  { name: "Tatuagens com Tintura Básica Clara", min: 48, max: 58, cat: "Pinturas", era: 1 },
+  { name: "Tatuagens com Tintura Básica Escura", min: 41, max: 49, cat: "Pinturas", era: 1 },
+  { name: "Tatuagens do Exiles Extreme", min: 183, max: 219, cat: "Pinturas", era: 1 }, // Corrigido
+  { name: "Tatuagens de Siptah", min: 183, max: 219, cat: "Pinturas", era: 1 }, // Corrigido
+  { name: "Tatuagens com cinza crua", min: 14, max: 17, cat: "Pinturas", era: 2 },
+  { name: "Tatuagens Atributos", min: 255, max: 306, cat: "Pinturas", era: 3 }, // Corrigido
+
+  // FORRAGENS
+  { name: "Yamatai", min: 78, max: 94, cat: "Forragens", era: 1 },
+  { name: "Turaniana", min: 78, max: 94, cat: "Forragens", era: 1 },
+  { name: "Picta", min: 146, max: 175, cat: "Forragens", era: 1 }, // Corrigido
+  { name: "Mascote Enfeitiçada/Saborosa", min: 78, max: 94, cat: "Forragens", era: 1 },
+  { name: "Poitain", min: 78, max: 94, cat: "Forragens", era: 1 },
+
+  // EXPLOSIVOS
+  { name: "Jarro Explosivo", min: 160, max: 192, cat: "Explosivos", era: 3 }, // Corrigido
+  { name: "Armadilha Explosiva", min: 252, max: 303, cat: "Explosivos", era: 3 }, // Corrigido
+  { name: "Armadilha de Vapor", min: 252, max: 303, cat: "Explosivos", era: 3 }, // Corrigido
+  { name: "Barragem de Fogo Demoníaco", min: 85, max: 102, cat: "Explosivos", era: 3 }
 ];

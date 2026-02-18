@@ -2,9 +2,9 @@ const Config = {
   Debug: false, // Ative para ver logs no console
   Store: {
     Url: "https://discord.com/invite/QBE6kKCBTF",
-    ButtonText: "Acessar Loja",
-    Title: "Lisa Store Mods e Implementações para jogos",
-    Description: "Facilite sua vida e otimize seu tempo!",
+    ButtonText: "Entrar Em contato",
+    Title: "Feito por Lisa",
+    Description: "Projeto sem fins lucrativos.",
   },
   Security: {
     DisableRightClick: true,
