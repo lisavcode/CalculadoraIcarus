@@ -60,7 +60,7 @@ dataByProfession.cacador = [
   { name: "Máscara Subaquática", min: 20, max: 25, cat: "Dungeon & Raros", era: 3 },
 
   // DROPS ANIMAIS MÉDIOS (Era 2 e 3)
-  { name: "Sangue de Demônio", min: 10, max: 20, cat: "Drops Animais Médios", era: 2 },
+  { name: "Sangue de Demônio", min: 10, max: 20, cat: "Drops Animais Médios", era: 3 },
   { name: "Seda de Ébano", min: 1.5, max: 2, cat: "Drops Animais Médios", era: 2 },
   { name: "Chifre de Dragão", min: 200, max: 300, cat: "Drops Animais Médios", era: 4 },
   { name: "Sangue de Urso de Demônio", min: 1, max: 2, cat: "Drops Animais Médios", era: 3 },
