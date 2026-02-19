@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Calculadora Icarus</title>
+    <title>Calculadora</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap"
@@ -17,15 +17,18 @@
               sans: ["Outfit", "sans-serif"],
             },
             colors: {
-              primary: "#00eeff",
-              secondary: "#7b2cbf",
-              bg: "#0f172a",
-              surface: "#1e293b",
+              primary: "rgb(var(--color-primary-rgb) / <alpha-value>)",
+              secondary: "rgb(var(--color-secondary-rgb) / <alpha-value>)",
+              bg: "var(--color-bg)",
+              surface: "var(--color-surface)",
+              "coin-oz": "var(--color-coin-oz)",
+              "coin-sz": "var(--color-coin-sz)",
+              "coin-bz": "var(--color-coin-bz)",
             },
             boxShadow: {
-              neon: "0 0 10px rgba(0, 238, 255, 0.5), 0 0 20px rgba(0, 238, 255, 0.3)",
+              neon: "0 0 10px rgb(var(--color-primary-rgb) / 0.5), 0 0 20px rgb(var(--color-primary-rgb) / 0.3)",
               "neon-hover":
-                "0 0 20px rgba(0, 238, 255, 0.8), 0 0 40px rgba(0, 238, 255, 0.5)",
+                "0 0 20px rgb(var(--color-primary-rgb) / 0.8), 0 0 40px rgb(var(--color-primary-rgb) / 0.5)",
             },
             animation: {
               "fade-in-down": "fadeInDown 1s ease-out",
@@ -43,22 +46,23 @@
     </script>
     <style>
       body {
-        background-color: #0f172a;
+        background-color: var(--color-bg);
         background-image:
-          radial-gradient(at 0% 0%, hsla(253, 16%, 7%, 1) 0, transparent 50%),
-          radial-gradient(at 50% 0%, hsla(225, 39%, 30%, 1) 0, transparent 50%),
-          radial-gradient(at 100% 0%, hsla(339, 49%, 30%, 1) 0, transparent 50%);
+          radial-gradient(at 0% 0%, rgba(0,0,0,0.3) 0, transparent 50%),
+          radial-gradient(at 50% 0%, var(--color-surface) 0, transparent 50%),
+          radial-gradient(at 100% 0%, var(--color-secondary) 0, transparent 50%);
         background-attachment: fixed;
+        color: var(--color-text);
       }
       .glass-card {
-        background: rgba(30, 41, 59, 0.7);
+        background: var(--color-card-bg);
         backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        border: 1px solid var(--color-border);
       }
     </style>
   </head>
   <body
-    class="flex flex-col items-center justify-center min-h-screen text-slate-100 font-sans p-4 overflow-hidden relative"
+    class="flex flex-col items-center justify-center min-h-screen font-sans p-4 overflow-hidden relative"
   >
     <!-- Background Elements -->
     <div
@@ -127,7 +131,8 @@
       <div class="flex flex-col gap-5">
         <a
           href="calculadora/"
-          class="group relative px-8 py-4 bg-primary text-slate-900 font-bold text-lg rounded-xl shadow-neon hover:shadow-neon-hover transform hover:-translate-y-1 transition-all duration-300 uppercase tracking-widest overflow-hidden"
+          class="group relative px-8 py-4 bg-primary font-bold text-lg rounded-xl shadow-neon hover:shadow-neon-hover transform hover:-translate-y-1 transition-all duration-300 uppercase tracking-widest overflow-hidden"
+          style="color: var(--color-text-on-primary)"
         >
           <span class="relative z-10">Acessar Calculadora</span>
           <div
@@ -172,6 +177,7 @@
         }
       });
     </script>
+    <script src="settings.js"></script>
     <script src="security.js"></script>
   </body>
 </html>

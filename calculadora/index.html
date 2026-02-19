@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Calculadora Icarus - Multi Profissão</title>
+    <title>Calculadora - Multi Profissão</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap"
@@ -17,17 +17,17 @@
               sans: ["Outfit", "sans-serif"],
             },
             colors: {
-              primary: "#00eeff",
-              secondary: "#7b2cbf",
-              bg: "#0f172a",
-              surface: "#1e293b",
-              "coin-oz": "#ffd700",
-              "coin-sz": "#92b5c5",
-              "coin-bz": "#cd7f32",
+              primary: "rgb(var(--color-primary-rgb) / <alpha-value>)",
+              secondary: "rgb(var(--color-secondary-rgb) / <alpha-value>)",
+              bg: "var(--color-bg)",
+              surface: "var(--color-surface)",
+              "coin-oz": "var(--color-coin-oz)",
+              "coin-sz": "var(--color-coin-sz)",
+              "coin-bz": "var(--color-coin-bz)",
             },
             boxShadow: {
-              neon: "0 0 5px rgba(0, 238, 255, 0.3)",
-              "neon-hover": "0 0 10px rgba(0, 238, 255, 0.6)",
+              neon: "0 0 5px rgb(var(--color-primary-rgb) / 0.3)",
+              "neon-hover": "0 0 10px rgb(var(--color-primary-rgb) / 0.6)",
             },
           },
         },
@@ -35,22 +35,23 @@
     </script>
     <style type="text/tailwindcss">
       body {
-        background-color: #0f172a;
+        background-color: var(--color-bg);
         background-image:
-          radial-gradient(at 0% 0%, hsla(253, 16%, 7%, 1) 0, transparent 50%),
-          radial-gradient(at 50% 0%, hsla(225, 39%, 30%, 1) 0, transparent 50%),
-          radial-gradient(at 100% 0%, hsla(339, 49%, 30%, 1) 0, transparent 50%);
+          radial-gradient(at 0% 0%, rgba(0, 0, 0, 0.3) 0, transparent 50%),
+          radial-gradient(at 50% 0%, var(--color-surface) 0, transparent 50%),
+          radial-gradient(at 100% 0%, var(--color-secondary) 0, transparent 50%);
         background-attachment: fixed;
+        color: var(--color-text);
       }
       .glass-card {
-        background: rgba(30, 41, 59, 0.95);
-        border: 1px solid rgba(255, 255, 255, 0.05);
+        background: var(--color-card-bg);
+        border: 1px solid var(--color-border);
       }
       .range-slider {
         -webkit-appearance: none;
         height: 6px;
         border-radius: 3px;
-        background: #334155;
+        background: var(--color-bar-bg);
         outline: none;
       }
       .range-slider::-webkit-slider-thumb {
@@ -58,9 +59,9 @@
         width: 12px;
         height: 12px;
         border-radius: 50%;
-        background: #00eeff;
+        background: var(--color-primary);
         cursor: pointer;
-        box-shadow: 0 0 10px rgba(0, 238, 255, 0.8);
+        box-shadow: 0 0 10px rgb(var(--color-primary-rgb) / 0.8);
         transition: transform 0.2s;
         margin-bottom: 2px;
       }
@@ -70,7 +71,8 @@
 
       /* Era Badges Colors */
       .badge-era-0 {
-        @apply bg-slate-500 text-white;
+        background-color: var(--color-input-bg);
+        color: var(--color-text);
       }
       .badge-era-1 {
         @apply bg-green-500 text-white shadow-lg shadow-green-500/20;
@@ -92,48 +94,53 @@
       }
     </style>
   </head>
-  <body class="flex flex-col min-h-screen text-slate-100 font-sans p-4 md:p-8">
+  <body class="flex flex-col min-h-screen font-sans p-4 md:p-8">
     <div class="max-w-7xl mx-auto w-full">
       <!-- Header -->
       <header class="text-center mb-8">
         <h1
           class="text-3xl md:text-5xl font-bold text-primary mb-2 tracking-wider uppercase drop-shadow-md"
         >
-          Calculadora Icarus
+          Calculadora
         </h1>
 
         <!-- Tabs -->
         <div class="flex flex-wrap justify-center gap-3 mt-6">
           <button
-            class="tab-btn active px-6 py-2 rounded-full border border-primary bg-primary text-slate-900 font-bold transition-all shadow-neon"
+            class="tab-btn active px-6 py-2 rounded-full border border-primary bg-primary font-bold transition-all shadow-neon"
+            style="color: var(--color-text-on-primary)"
             data-tab="cacador"
             onclick="setTab('cacador')"
           >
             Caçador
           </button>
           <button
-            class="tab-btn px-6 py-2 rounded-full border border-slate-600 text-slate-400 hover:border-primary hover:text-white transition-all"
+            class="tab-btn px-6 py-2 rounded-full border border-slate-600 font-bold transition-all hover:border-primary/50 hover:text-primary hover:shadow-neon-hover"
+            style="color: var(--color-tab-text)"
             data-tab="alquimista"
             onclick="setTab('alquimista')"
           >
             Alquimista
           </button>
           <button
-            class="tab-btn px-6 py-2 rounded-full border border-slate-600 text-slate-400 hover:border-primary hover:text-white transition-all"
+            class="tab-btn px-6 py-2 rounded-full border border-slate-600 font-bold transition-all hover:border-primary/50 hover:text-primary hover:shadow-neon-hover"
+            style="color: var(--color-tab-text)"
             data-tab="minerador"
             onclick="setTab('minerador')"
           >
             Minerador
           </button>
           <button
-            class="tab-btn px-6 py-2 rounded-full border border-slate-600 text-slate-400 hover:border-primary hover:text-white transition-all"
+            class="tab-btn px-6 py-2 rounded-full border border-slate-600 font-bold transition-all hover:border-primary/50 hover:text-primary hover:shadow-neon-hover"
+            style="color: var(--color-tab-text)"
             data-tab="artesao"
             onclick="setTab('artesao')"
           >
             Artesão
           </button>
           <button
-            class="tab-btn px-6 py-2 rounded-full border border-slate-600 text-slate-400 hover:border-primary hover:text-white transition-all"
+            class="tab-btn px-6 py-2 rounded-full border border-slate-600 font-bold transition-all hover:border-primary/50 hover:text-primary hover:shadow-neon-hover"
+            style="color: var(--color-tab-text)"
             data-tab="alfaiate"
             onclick="setTab('alfaiate')"
           >
@@ -154,7 +161,12 @@
                 id="search"
                 placeholder="Buscar item..."
                 autocomplete="off"
-                class="w-full bg-slate-800/50 text-white border border-slate-600 rounded-lg px-4 py-3 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
+                class="w-full border rounded-lg px-4 py-3 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
+                style="
+                  background: var(--color-input-bg);
+                  border-color: var(--color-input-border);
+                  color: var(--color-text);
+                "
               />
               <div class="absolute right-3 top-3 text-slate-400">
                 <svg
@@ -179,14 +191,24 @@
               value="1"
               min="1"
               placeholder="Qtd"
-              class="w-24 bg-slate-800/50 text-white border border-slate-600 rounded-lg px-2 py-3 text-center font-bold focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
+              class="w-24 border rounded-lg px-2 py-3 text-center font-bold focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
+              style="
+                background: var(--color-input-bg);
+                border-color: var(--color-input-border);
+                color: var(--color-text);
+              "
             />
           </div>
 
           <div class="flex gap-2 min-w-[300px]">
             <select
               id="filter-era"
-              class="flex-grow bg-slate-800/50 text-white border border-slate-600 rounded-lg px-4 py-3 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all cursor-pointer appearance-none"
+              class="flex-grow border rounded-lg px-4 py-3 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all cursor-pointer appearance-none"
+              style="
+                background: var(--color-input-bg);
+                border-color: var(--color-input-border);
+                color: var(--color-text);
+              "
             >
               <option value="all">Todas as Eras</option>
               <option value="1">Era 1</option>
@@ -199,7 +221,12 @@
             </select>
             <select
               id="sort-order"
-              class="flex-grow bg-slate-800/50 text-white border border-slate-600 rounded-lg px-4 py-3 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all cursor-pointer appearance-none"
+              class="flex-grow border rounded-lg px-4 py-3 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all cursor-pointer appearance-none"
+              style="
+                background: var(--color-input-bg);
+                border-color: var(--color-input-border);
+                color: var(--color-text);
+              "
             >
               <option value="default">Sem Filtro</option>
               <option value="era-asc">Era: Menor &uarr;</option>
@@ -222,6 +249,7 @@
 
     <!-- Scripts -->
     <script src="../config.js"></script>
+    <script src="../settings.js"></script>
     <script src="../security.js"></script>
     <script>
       const dataByProfession = {};
@@ -255,21 +283,14 @@
         // Update UI tabs
         document.querySelectorAll(".tab-btn").forEach((btn) => {
           if (btn.dataset.tab === tabName) {
-            btn.classList.add(
-              "bg-primary",
-              "text-slate-900",
-              "border-primary",
-              "shadow-neon",
-            );
+            btn.classList.add("bg-primary", "border-primary", "shadow-neon");
+            btn.style.color = "var(--color-text-on-primary)";
             btn.classList.remove("text-slate-400", "border-slate-600");
           } else {
-            btn.classList.remove(
-              "bg-primary",
-              "text-slate-900",
-              "border-primary",
-              "shadow-neon",
-            );
-            btn.classList.add("text-slate-400", "border-slate-600");
+            btn.classList.remove("bg-primary", "border-primary", "shadow-neon");
+            btn.style.color = ""; // Reset inline style
+            btn.classList.add("border-slate-600");
+            btn.style.color = "var(--color-tab-text)";
           }
         });
 
@@ -335,48 +356,49 @@
 
         return `
                 <div class="glass-card p-3 rounded-lg flex flex-col gap-2 hover:border-primary/50 transition-all duration-300 group">
-                    <div class="flex justify-between items-start border-b border-slate-700/50 pb-2">
-                        <h3 class="text-base font-bold text-primary group-hover:text-white transition-colors leading-tight">${item.name}</h3>
+                    <div class="flex justify-between items-start pb-2" style="border-bottom: 1px solid var(--color-border)">
+                        <h3 class="text-base font-bold text-primary transition-colors leading-tight" onmouseover="this.style.color='var(--color-text-hover)'" onmouseout="this.style.color=''"> ${item.name}</h3>
                         <span class="${badgeClass} text-[9px] px-1.5 py-0.5 rounded font-bold uppercase tracking-wider">${eraText}</span>
                     </div>
 
                     <div class="flex flex-col gap-1.5 text-xs">
                         <div class="flex justify-between items-center">
-                            <span class="text-slate-500 uppercase text-[10px] font-semibold">Unitário</span>
+                            <span class="text-[10px] font-semibold uppercase" style="color: var(--color-text-muted)">Unitário</span>
                             <div class="text-right text-[11px]">
-                                ${formatMoneyConverted(item.min)} <span class="text-[10px] text-slate-600">-</span> ${formatMoneyConverted(item.max)}
+                                ${formatMoneyConverted(item.min)} <span class="text-[10px]" style="color: var(--color-text-muted)">-</span> ${formatMoneyConverted(item.max)}
                             </div>
                         </div>
 
-                        <div class="flex justify-between items-center bg-slate-800/30 p-1.5 rounded-lg">
-                            <span class="text-slate-500 uppercase text-[10px] font-semibold">Estimativa</span>
+                        <div class="flex justify-between items-center p-1.5 rounded-lg" style="background: var(--color-estimate-bg)">
+                            <span class="text-[10px] font-semibold uppercase" style="color: var(--color-text-muted)">Estimativa</span>
                             <div class="text-right text-[11px]">
                                 ${formatMoneyConverted(totalMin)}
-                                <span class="text-[9px] text-slate-500 mx-1">até</span>
+                                <span class="text-[9px] mx-1" style="color: var(--color-text-muted)">até</span>
                                 ${formatMoneyConverted(totalMax)}
                             </div>
                         </div>
                     </div>
 
-                    <div class="mt-1 pt-2 border-t border-slate-700/50">
+                    <div class="mt-1 pt-2" style="border-top: 1px solid var(--color-border)">
                         <div class="flex justify-between items-center mb-1">
                             <span class="text-primary text-[10px] uppercase font-bold tracking-wider">Personalizado</span>
                             <input type="number" id="${inputId}" min="${item.min}" max="${item.max}" step="0.01" value="${storedPrice}"
                                    oninput="updateCustomPrice(${index}, '${safeName}', this.value, 'input')"
-                                   class="w-16 bg-slate-900 border border-slate-700 text-white text-[10px] rounded px-0.5 py-0.5 text-right focus:border-primary outline-none transition-colors">
+                                   class="w-16 text-[10px] rounded px-0.5 py-0.5 text-right focus:border-primary outline-none transition-colors"
+                                   style="background: var(--color-input-bg); border: 1px solid var(--color-input-border); color: var(--color-text)">
                         </div>
 
                         <input type="range" id="${rangeId}" min="${item.min}" max="${item.max}" step="0.01" value="${storedPrice}"
                                oninput="updateCustomPrice(${index}, '${safeName}', this.value, 'range')"
                                class="range-slider w-full mb-3 h-1"
-                               style="background: linear-gradient(to right, #00eeff ${percent}%, #334155 ${percent}%)">
+                               style="background: linear-gradient(to right, var(--color-primary) ${percent}%, var(--color-bar-bg) ${percent}%)">
 
                         <div id="${totalId}" class="text-right bg-primary/10 border border-primary/20 p-1.5 rounded-lg">
                             <div class="flex justify-between items-end">
                                 <span class="text-[9px] text-primary font-bold">Total</span>
                                 <div>
                                     <div class="text-sm font-bold leading-none">${formatMoneyConverted(currentTotal)}</div>
-                                    <div class="text-[9px] text-slate-500 leading-none mt-0.5">${Math.floor(currentTotal).toLocaleString("pt-BR")} Bz</div>
+                                    <div class="text-[9px] leading-none mt-0.5" style="color: var(--color-text-muted)">${Math.floor(currentTotal).toLocaleString("pt-BR")} Bz</div>
                                 </div>
                             </div>
                         </div>
@@ -411,7 +433,7 @@
         if (max > min) percent = ((val - min) / (max - min)) * 100;
         percent = Math.min(Math.max(percent, 0), 100);
 
-        rangeInput.style.background = `linear-gradient(to right, #00eeff ${percent}%, #334155 ${percent}%)`;
+        rangeInput.style.background = `linear-gradient(to right, var(--color-primary) ${percent}%, var(--color-bar-bg) ${percent}%)`;
 
         const total = val * qty;
         totalDisplay.innerHTML = `
@@ -419,7 +441,7 @@
                     <span class="text-[9px] text-primary font-bold">Total</span>
                     <div>
                         <div class="text-sm font-bold leading-none">${formatMoneyConverted(total)}</div>
-                        <div class="text-[9px] text-slate-500 leading-none mt-0.5">${Math.floor(total).toLocaleString("pt-BR")} Bz</div>
+                        <div class="text-[9px] leading-none mt-0.5" style="color: var(--color-text-muted)">${Math.floor(total).toLocaleString("pt-BR")} Bz</div>
                     </div>
                 </div>
             `;
